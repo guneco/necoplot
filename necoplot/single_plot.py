@@ -5,13 +5,12 @@ from matplotlib.axes._axes import Axes
 
 from .core_plot import *
 
+
 def __enter__(self):
     return(self)
 
-
 def __exit__(self, exc_type, exc_value, exc_traceback):
     plt.show()
-
 
 Axes.__enter__ = __enter__
 Axes.__exit__ = __exit__
@@ -22,17 +21,21 @@ def plot(ax_func: Callable = None,):
     ax = fig.add_subplot(111)
     
     if not ax_func:
-        ax_func = set_ax()
+        ax_func = config_ax()
     
     ax = ax_func(ax)
         
     return ax
 
 
-def set_ax(xlim: list[float] = None):
+def config_ax(xlim: list[float] = None):
     
-    def _set_ax(ax):
+    def _config_ax(ax):
         ax.set_xlim(*xlim) if xlim else None
         return ax
 
-    return _set_ax
+    return _config_ax
+
+
+
+

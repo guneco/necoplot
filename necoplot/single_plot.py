@@ -3,8 +3,6 @@ from typing import Callable
 import matplotlib.pyplot as plt
 from matplotlib.axes._axes import Axes
 
-from .core_plot import *
-
 
 def __enter__(self):
     return(self)
@@ -16,13 +14,17 @@ Axes.__enter__ = __enter__
 Axes.__exit__ = __exit__
 
 
-def plot(ax_func: Callable = None,):
-    fig = plt.figure(figsize=(5,3))
+def plot(
+    ax_func: Callable=None,
+    figsize=(6,4),
+    dpi=300,
+    ):
+    
+    ax_func = ax_func if ax_func else config_ax()
+
+    fig = plt.figure(figsize=figsize, dpi=dpi)
     ax = fig.add_subplot(111)
-    
-    if not ax_func:
-        ax_func = config_ax()
-    
+        
     ax = ax_func(ax)
         
     return ax

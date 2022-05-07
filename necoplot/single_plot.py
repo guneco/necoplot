@@ -2,6 +2,7 @@ from typing import Callable, Optional
 import inspect
 
 import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
 from matplotlib.axes._axes import Axes
 
 
@@ -14,8 +15,10 @@ def __exit__(self, exc_type, exc_value, exc_traceback):
 Axes.__enter__ = __enter__
 Axes.__exit__ = __exit__
 
-FIGURE_ARGS = [arg.replace('set_', '') for arg in dir(plt.figure()) if not arg.startswith('_')]
-AXES_ARGS = [arg.replace('set_', '') for arg in dir(Axes) if not arg.startswith('_')]
+FIGURE_PARAMS = dict(inspect.signature(Figure).parameters).keys()
+
+FIGURE_PARAMS = [arg.replace('set_', '') for arg in dir(plt.figure()) if not arg.startswith('_')]
+AXES_PARAMS = [arg.replace('set_', '') for arg in dir(Axes) if not arg.startswith('_')]
 
 
 def plot(
@@ -26,12 +29,12 @@ def plot(
     **kwargs) -> Axes:
     """Plot a figure with setting figure args and axes args"""
     
-    figure_args = {key: kwargs[key] for key in kwargs.keys() if key in FIGURE_ARGS}
-    axes_args = {key: kwargs[key] for key in kwargs.keys() if key in AXES_ARGS}
+    figure_args = {key: kwargs[key] for key in kwargs.keys() if key in FIGURE_PARAMS}
+    axes_args = {key: kwargs[key] for key in kwargs.keys() if key in AXES_PARAMS}
     
     for key in kwargs:
-        if (key not in FIGURE_ARGS) and (key not in AXES_ARGS):
-            print(f'Info: {key} is ignored because it is not found in FIGURE_ARGS or AXES_ARGS')
+        if (key not in FIGURE_PARAMS) and (key not in AXES_PARAMS):
+            print(f'Info: {key} is ignored because it is not found in FIGURE_PARAMS or AXES_PARAMS')
 
     fig = plt.figure(figsize=figsize, dpi=dpi, layout=layout, **figure_args)
     
@@ -85,4 +88,24 @@ def save(fname: str, show=True, **kwargs) -> None:
     plt.close() if not show else None
     
 
+default_dict = {}
 
+def config_default_dict(**kwargs):
+    default_dict.update(kwargs)
+
+def apply_config(target_kwargs:list):
+    default_dict = {key: default_dict[key] for key in default_dict.keys() if key in target_kwargs}
+    
+    
+    def _apply_config(func):
+        
+        def wrapper(*args, **kwargs):
+            default_dict.update(kwargs)
+            
+            result = func(*args, **kwargs)
+            
+            return result
+        
+        return wrapper
+    
+    return _apply_config

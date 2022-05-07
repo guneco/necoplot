@@ -12,8 +12,6 @@ import necoplot.config as config
 
 FIGURE_PARAMS = extract_params.FIGURE_PARAMS
 AXES_PARAMS = extract_params.AXES_PARAMS
-# FIGURE_PARAMS = extract_params(Figure)
-# AXES_PARAMS = extract_params(Axes)
 
 
 def __enter__(self):
@@ -73,34 +71,35 @@ def plot(
 
 
 @apply_user_parameters(AXES_PARAMS)
-def config_ax(
+def config_ax(index_: int = 111,
     title: Optional[str] = None,
     xlabel: Optional[str] = None,
     ylabel: Optional[str] = None,
     **kwargs) -> Callable:
     """Return a function to config ax with keyword args"""
     
-    kwargs_not_packed = _get_kwargs_in_this_function_as_dict()
+    kwargs_not_packed = _get_local_kwargs(exception=['index_'])
     all_kwargs = {**kwargs_not_packed, **kwargs}
     
     def _config_ax(fig):
         
-        ax = fig.add_subplot(111, **all_kwargs)
+        ax = fig.add_subplot(index_, **all_kwargs)
         
         return ax
 
     return _config_ax
 
 
-def _get_kwargs_in_this_function_as_dict() -> dict:
+def _get_local_kwargs(exception: Optional[list[str]]=None) -> dict:
     """Return parent function args and values as dict"""
+    
+    exception = exception if exception else []
+    exception = exception + ['args', 'kwargs']
     
     fname = inspect.currentframe().f_back
     args_dict = inspect.getargvalues(fname).locals
-    
-    if 'kwargs' in args_dict.keys():
-        del args_dict['kwargs']
-    
+        
+    args_dict = {k: v for k, v in args_dict.items() if k not in exception}
     args_dict = {k: v for k, v in args_dict.items() if v is not None}
     
     return args_dict

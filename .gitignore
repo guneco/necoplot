@@ -175,5 +175,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-pyproject.toml
+# pyproject.toml
 poetry.lock

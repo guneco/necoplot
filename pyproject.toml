@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "necoplot"
+version = "0.1.3"
+description = "Simplify codes to plot grahp by matplotlib"
+authors = ["guneco <gu3fav@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/guneco"
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.11,"
+matplotlib = "^3.5.1"
+japanize-matplotlib = "^1.1.3"
+
+[tool.poetry.dev-dependencies]
+ipykernel = "^6.11.0"
+pytest = "^7.1.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

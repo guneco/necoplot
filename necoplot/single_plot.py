@@ -15,11 +15,14 @@ def __exit__(self, exc_type, exc_value, exc_traceback):
 Axes.__enter__ = __enter__
 Axes.__exit__ = __exit__
 
-FIGURE_PARAMS = dict(inspect.signature(Figure).parameters).keys()
+FIGURE_PARAMS = list(inspect.signature(Figure).parameters.keys())
+AXES_PARAMS = list(inspect.signature(Axes).parameters.keys())
 
-FIGURE_PARAMS = [arg.replace('set_', '') for arg in dir(plt.figure()) if not arg.startswith('_')]
-AXES_PARAMS = [arg.replace('set_', '') for arg in dir(Axes) if not arg.startswith('_')]
+figure_other_params = [param for param in dir(Figure) if not param.startswith('_')]
+axes_other_params = [param for param in dir(Axes) if not param.startswith('_')]
 
+FIGURE_PARAMS = FIGURE_PARAMS.append(figure_other_params)
+AXES_PARAMS = AXES_PARAMS.append(axes_other_params)
 
 def plot(
     ax_config: Optional[Callable] = None,

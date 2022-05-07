@@ -42,57 +42,15 @@ def plot(
 
 
 def config_ax(
-    title: str = None,
-    xlabel: str = None,
-    ylabel: str = None,
-    xlim: tuple[float, float] = None,
-    ylim: tuple[float, float] = None,
-    xticks: list = None,
-    yticks: list = None,
-    xticklabels: str = None,
-    yticklabels: str = None,
-    **kwagrs):
-    """Return a function to config ax with keyword args"""
-    
-    kwagrs.update({
-    'title': title,
-    'xlabel': xlabel,
-    'ylabel': ylabel,
-    'xlim': xlim,
-    'ylim': ylim,
-    'xticks': xticks,
-    'yticks': yticks,
-    'xticklabels': xticklabels,
-    'yticklabels': yticklabels,
-    })
-    
-    kwagrs = {key:value for key, value in kwagrs.items() if value}
-    
-    def _config_ax(fig):
-        
-        ax = fig.add_subplot(111, **kwagrs)
-        
-        return ax
-
-    return _config_ax
-
-
-def save(fname: str, show=True, **kwargs):
-    """Save a figure with keyword args"""
-    plt.savefig(fname, **kwargs)
-    plt.close() if not show else None
-    
-
-def config_ax(
-    title: str = None,
-    xlabel: str = None,
-    ylabel: str = None,
-    xlim: tuple[float, float] = None,
-    ylim: tuple[float, float] = None,
-    xticks: list = None,
-    yticks: list = None,
-    xticklabels: str = None,
-    yticklabels: str = None,
+    title: Optional[str] = None,
+    xlabel: Optional[str] = None,
+    ylabel: Optional[str] = None,
+    xlim: Optional[tuple[float, float]] = None,
+    ylim: Optional[tuple[float, float]] = None,
+    xticks: Optional[list] = None,
+    yticks: Optional[list] = None,
+    xticklabels: Optional[str] = None,
+    yticklabels: Optional[str] = None,
     **kwargs) -> Callable:
     """Return a function to config ax with keyword args"""
     
@@ -117,4 +75,12 @@ def _get_kwargs_in_this_function_as_dict() -> dict:
     args_dict = {k: v for k, v in args_dict.items() if v is not None}
     
     return args_dict
+
+
+def save(fname: str, show=True, **kwargs):
+    """Save a figure with keyword args"""
+    plt.savefig(fname, **kwargs)
+    plt.close() if not show else None
+    
+
 

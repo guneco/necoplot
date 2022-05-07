@@ -3,8 +3,6 @@
 ## Usage examples
 
 ```python:
-import matplotlib.pyplot as plt
-
 import numpy as np
 
 import necoplot as neco
@@ -33,6 +31,13 @@ ax0 = neco.config_ax(xlim=(1,5), title='title', xscale='log')
 
 with neco.plot(ax0, figsize=(6,4)) as ax:
     ax.plot(xx, yy)
+
+
+# Config ax directry
+with neco.plot() as ax:
+    ax.plot(xx, yy, label='x squared')
+    ax.legend()
+    ax.hlines(y=25, xmin=-5, xmax=5)
 
 
 # Save figure

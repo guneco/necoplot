@@ -1,12 +1,14 @@
 # necoplot
-under development
 
-USAGE
-
-config necoplot -> coneco
+## Usage examples
 
 ```python:
-import necoplot
+import matplotlib.pyplot as plt
+
+import numpy as np
+
+import necoplot as neco
+
 
 xx = np.linspace(-5,5,20)
 yy = xx*xx
@@ -17,20 +19,25 @@ with neco.plot() as ax:
 
 
 # Config figiure
-with neco.plot(figsize=(6,4), dpi=150) as ax:
+with neco.plot(figsize=(4,4), dpi=150, facecolor='silver') as ax:
     ax.plot(xx, yy)
 
 
-# Config ax directry
-with neco.plot(xlim=[0,5]) as ax:
+# Config ax by plot() 
+with neco.plot(figsize=(6,4), xlim=(-5,0)) as ax:
+    ax.plot(xx, yy) 
+
+
+# Config ax by config_ax()
+ax0 = neco.config_ax(xlim=(1,5), title='title', xscale='log')
+
+with neco.plot(ax0, figsize=(6,4)) as ax:
     ax.plot(xx, yy)
 
 
-# Config ax
-ax0 = neco.config_ax(xlim=[0,5])
-
-with neco.plot(ax0) as ax:
+# Save figure
+with neco.plot() as ax:
     ax.plot(xx, yy)
-
+    neco.save('sample.png', show=False)
 
 ```

@@ -9,7 +9,6 @@ from matplotlib.axes._axes import Axes
 from .core_plot import *
 
 
-
 def multiplot(ax_funcs: Callable, indices: int):
     cp = CorePlot()
     axes = []

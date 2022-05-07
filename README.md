@@ -2,7 +2,7 @@
 
 ## Usage examples
 
-```python:
+```python
 import numpy as np
 import necoplot as neco
 

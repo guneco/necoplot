@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.axes._axes import Axes
 
+from necoplot.extract_params import extract_params
 
 def __enter__(self):
     return(self)
@@ -15,14 +16,9 @@ def __exit__(self, exc_type, exc_value, exc_traceback):
 Axes.__enter__ = __enter__
 Axes.__exit__ = __exit__
 
-FIGURE_PARAMS = list(inspect.signature(Figure).parameters.keys())
-AXES_PARAMS = list(inspect.signature(Axes).parameters.keys())
+FIGURE_PARAMS = extract_params(Figure)
+AXES_PARAMS = extract_params(Axes)
 
-figure_other_params = [param for param in dir(Figure) if not param.startswith('_')]
-axes_other_params = [param for param in dir(Axes) if not param.startswith('_')]
-
-FIGURE_PARAMS = FIGURE_PARAMS.append(figure_other_params)
-AXES_PARAMS = AXES_PARAMS.append(axes_other_params)
 
 def plot(
     ax_config: Optional[Callable] = None,

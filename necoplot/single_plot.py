@@ -53,18 +53,24 @@ def config_ax(
     **kwagrs):
     """Return a function to config ax with keyword args"""
     
+    kwagrs.update({
+    'title': title,
+    'xlabel': xlabel,
+    'ylabel': ylabel,
+    'xlim': xlim,
+    'ylim': ylim,
+    'xticks': xticks,
+    'yticks': yticks,
+    'xticklabels': xticklabels,
+    'yticklabels': yticklabels,
+    })
+    
+    kwagrs = {key:value for key, value in kwagrs.items() if value}
+    
     def _config_ax(fig):
-        ax = fig.add_subplot(111, 
-            title,
-            xlabel,
-            ylabel,
-            xlim,
-            ylim,
-            xticks,
-            yticks,
-            xticklabels,
-            yticklabels,
-            **kwagrs)
+        
+        ax = fig.add_subplot(111, **kwagrs)
+        
         return ax
 
     return _config_ax

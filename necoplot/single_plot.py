@@ -6,12 +6,14 @@ import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.axes._axes import Axes
 
-from necoplot.extract_params import extract_params
+import necoplot.extract_params as extract_params
 import necoplot.config as config
 
 
-FIGURE_PARAMS = extract_params(Figure)
-AXES_PARAMS = extract_params(Axes)
+FIGURE_PARAMS = extract_params.FIGURE_PARAMS
+AXES_PARAMS = extract_params.AXES_PARAMS
+# FIGURE_PARAMS = extract_params(Figure)
+# AXES_PARAMS = extract_params(Axes)
 
 
 def __enter__(self):

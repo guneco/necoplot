@@ -1,5 +1,7 @@
 import inspect
 
+from matplotlib.figure import Figure
+from matplotlib.axes._axes import Axes
 
 def extract_params(target_class: object):
     """Extract parameters including kwargs parameters"""
@@ -16,3 +18,6 @@ def extract_params(target_class: object):
     params = params + param_members
     
     return params
+
+FIGURE_PARAMS = extract_params(Figure)
+AXES_PARAMS = extract_params(Axes)

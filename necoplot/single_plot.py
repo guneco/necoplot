@@ -29,16 +29,16 @@ def plot(
     **kwargs) -> Axes:
     """Plot a figure with setting figure args and axes args"""
     
-    figure_args = {key: kwargs[key] for key in kwargs.keys() if key in FIGURE_PARAMS}
-    axes_args = {key: kwargs[key] for key in kwargs.keys() if key in AXES_PARAMS}
+    figure_params = {key: kwargs[key] for key in kwargs.keys() if key in FIGURE_PARAMS}
+    axes_params = {key: kwargs[key] for key in kwargs.keys() if key in AXES_PARAMS}
     
     for key in kwargs:
         if (key not in FIGURE_PARAMS) and (key not in AXES_PARAMS):
             print(f'Info: {key} is ignored because it is not found in FIGURE_PARAMS or AXES_PARAMS')
 
-    fig = plt.figure(figsize=figsize, dpi=dpi, layout=layout, **figure_args)
+    fig = plt.figure(figsize=figsize, dpi=dpi, layout=layout, **figure_params)
     
-    ax_config = ax_config if ax_config else config_ax(**axes_args)
+    ax_config = ax_config if ax_config else config_ax(**axes_params)
     ax = ax_config(fig)
             
     return ax

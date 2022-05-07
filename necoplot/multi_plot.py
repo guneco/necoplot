@@ -6,20 +6,32 @@ import matplotlib.pyplot as plt
 
 from matplotlib.axes._axes import Axes
 
-from .core_plot import *
+import matplotlib.pyplot as plt
 
 
-def multiplot(ax_funcs: Callable, indices: int):
-    cp = CorePlot()
+class PlotBase():
+    def __init__(self):
+        self.fig = plt.figure(figsize=(5,3))
+
+    def __enter__(self):
+        return(self)
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        plt.show()
+        
+
+
+def mplot(ax_funcs: Callable, indices: int):
+    pb = PlotBase()
     axes = []
     
     for func, index in zip(ax_funcs, indices):
-        ax = cp.fig.add_subplot(index)
+        ax = pb.fig.add_subplot(index)
         ax = func(ax)
         axes.append(ax)
         
-    cp.axes = axes
-    return cp
+    pb.axes = axes
+    return pb
 
 
 def set_ax(xlim: list[float] = None):

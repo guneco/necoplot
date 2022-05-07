@@ -23,7 +23,7 @@ def plot(
     figsize: tuple[float, float] = (6,4),
     dpi: int = 300,
     layout: str = 'tight',
-    **kwargs):
+    **kwargs) -> Axes:
     """Plot a figure with setting figure args and axes args"""
     
     figure_args = {key: kwargs[key] for key in kwargs.keys() if key in FIGURE_ARGS}
@@ -79,7 +79,7 @@ def _get_kwargs_in_this_function_as_dict() -> dict:
     return args_dict
 
 
-def save(fname: str, show=True, **kwargs):
+def save(fname: str, show=True, **kwargs) -> None:
     """Save a figure with keyword args"""
     plt.savefig(fname, **kwargs)
     plt.close() if not show else None

@@ -4,7 +4,7 @@ from matplotlib.figure import Figure
 from matplotlib.axes._axes import Axes
 
 def extract_params(target_class: object):
-    """Extract parameters including kwargs parameters"""
+    """Extract parameters including **kwargs parameters"""
     
     params = list(inspect.signature(target_class).parameters.keys())
     

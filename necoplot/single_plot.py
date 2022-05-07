@@ -55,7 +55,6 @@ def config_ax(
     """Return a function to config ax with keyword args"""
     
     kwargs_not_packed = _get_kwargs_in_this_function_as_dict()
-    del kwargs_not_packed['kwargs']
     all_kwargs = {**kwargs_not_packed, **kwargs}
     
     def _config_ax(fig):
@@ -71,6 +70,9 @@ def _get_kwargs_in_this_function_as_dict() -> dict:
     """Return parent function args and values as dict"""
     fname = inspect.currentframe().f_back
     args_dict = inspect.getargvalues(fname).locals
+    
+    if 'kwargs' in args_dict.keys():
+        del args_dict['kwargs']
     
     args_dict = {k: v for k, v in args_dict.items() if v is not None}
     

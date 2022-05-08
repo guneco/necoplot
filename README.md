@@ -75,3 +75,14 @@ with neco.plot() as ax:
 neco.reset()
 
 ```
+
+```python
+# Plot multiple 
+ax0 = neco.config_ax(121, xlim=(-5, 0),title='Left side')
+ax1 = neco.config_ax(122, xlim=(0, 5), title='Right side', yticks=[])
+
+with neco.mplot([ax0, ax1]) as p:
+    p.axes[0].plot(xx, yy)
+    p.axes[1].plot(xx, yy)
+```
+![exsample08_multplot](https://user-images.githubusercontent.com/104950574/167278380-ed6a84a8-177e-47b0-a4ca-c20162af56fe.png)

@@ -1,4 +1,11 @@
 # necoplot
+`necoplot` is a matplotlib wrapper.  
+It may help you to write plotting code briefly.
+
+
+## Installation
+`pip install necoplot`
+
 
 ## Usage examples
 

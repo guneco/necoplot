@@ -38,9 +38,15 @@ def apply_user_parameters(target_kwargs:list[Union[str, list]]):
 
 @apply_user_parameters(AXES_PARAMS)
 def config_ax(index_: int = 111,
-    title: Optional[str] = None,
-    xlabel: Optional[str] = None,
-    ylabel: Optional[str] = None,
+    title: str = None,
+    xlabel: str = None,
+    ylabel: str = None,
+    xlim: tuple[float, float] = None,
+    ylim: tuple[float, float] = None,
+    xticks: list = None,
+    yticks: list = None,
+    xticklabels: str = None,
+    yticklabels: str = None,
     **kwargs) -> Callable:
     """Return a function to config ax with keyword args"""
     

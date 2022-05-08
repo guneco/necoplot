@@ -37,7 +37,7 @@ def _apply_user_parameters(target_kwargs:list[Union[str, list]]):
 
 
 @_apply_user_parameters(AXES_PARAMS)
-def config_ax(index_: int = 111,
+def config_ax(index: int = 111,
     title: str = None,
     xlabel: str = None,
     ylabel: str = None,
@@ -50,12 +50,12 @@ def config_ax(index_: int = 111,
     **kwargs) -> Callable:
     """Return a function to config ax with keyword args"""
     
-    kwargs_not_packed = _get_local_kwargs(exception=['index_'])
+    kwargs_not_packed = _get_local_kwargs(exception=['index'])
     all_kwargs = {**kwargs_not_packed, **kwargs}
     
     def _config_ax(fig):
         
-        ax = fig.add_subplot(index_, **all_kwargs)
+        ax = fig.add_subplot(index, **all_kwargs)
         
         return ax
 

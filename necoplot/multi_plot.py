@@ -10,24 +10,32 @@ import matplotlib.pyplot as plt
 
 
 class PlotBase():
-    def __init__(self):
-        self.fig = plt.figure(figsize=(5,3))
+    def __init__(self,
+        figsize: tuple[float, float] = (6,4),
+        dpi: int = 300,
+        layout: str = 'tight',
+        show=True,
+        **kwagrs):
+        
+        self.fig = plt.figure(
+            figsize=figsize, dpi=dpi, layout=layout, **kwagrs
+            )
+        self.show = show
 
     def __enter__(self):
         return(self)
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
-        plt.show()
+        plt.show() if self.show else None
         
 
 
-def mplot(ax_funcs: Callable, indices: int):
+def mplot(ax_funcs: list[Callable], indices: int):
     pb = PlotBase()
     axes = []
     
     for func, index in zip(ax_funcs, indices):
-        ax = pb.fig.add_subplot(index)
-        ax = func(ax)
+        ax = func(ax, index_=index)
         axes.append(ax)
         
     pb.axes = axes

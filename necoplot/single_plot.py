@@ -1,18 +1,14 @@
-from typing import Callable, Optional, Union
+from typing import Callable, Optional
 
 import matplotlib.pyplot as plt
 from matplotlib.axes._axes import Axes
 
-import necoplot.extract_params as extract_params
+from necoplot.extract_params import FIGURE_PARAMS, AXES_PARAMS
+
 import necoplot.common as common
 from necoplot.common import (
     config_ax, save, config_user_parameters, reset,
 )
-
-
-FIGURE_PARAMS = extract_params.FIGURE_PARAMS
-AXES_PARAMS = extract_params.AXES_PARAMS
-
 
 def __enter__(self):
     return(self)

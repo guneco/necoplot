@@ -1,6 +1,7 @@
 # developement directry
 _*/
-
+tests
+.png
 
 .DS_Store
 .huskyrc.json

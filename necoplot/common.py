@@ -14,7 +14,7 @@ FIGURE_PARAMS = extract_params.FIGURE_PARAMS
 AXES_PARAMS = extract_params.AXES_PARAMS
 
 
-def apply_user_parameters(target_kwargs:list[Union[str, list]]):
+def _apply_user_parameters(target_kwargs:list[Union[str, list]]):
     """Decorator to apply user parameters to a target function"""
     
     if isinstance(target_kwargs[0], list):
@@ -36,7 +36,7 @@ def apply_user_parameters(target_kwargs:list[Union[str, list]]):
     return _apply_config
 
 
-@apply_user_parameters(AXES_PARAMS)
+@_apply_user_parameters(AXES_PARAMS)
 def config_ax(index_: int = 111,
     title: str = None,
     xlabel: str = None,

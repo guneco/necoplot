@@ -26,28 +26,6 @@ Axes.__enter__ = __enter__
 Axes.__exit__ = __exit__
 
 
-def apply_user_parameters(target_kwargs:list[Union[str, list]]):
-    """Decorator to apply user parameters to a target function"""
-    
-    if isinstance(target_kwargs[0], list):
-        target_kwargs = list(itertools.chain.from_iterable(target_kwargs))
-    
-    def _apply_config(func):
-        
-        def wrapper(*args, **kwargs):
-            
-            parameter = {key:value for key, value in config.user_parameters.items() if key in target_kwargs}
-            kwargs = {**parameter, **kwargs}
-            
-            result = func(*args, **kwargs)
-            
-            return result
-        
-        return wrapper
-    
-    return _apply_config
-
-
 @apply_user_parameters([FIGURE_PARAMS, AXES_PARAMS])
 def plot(
     ax_config: Optional[Callable] = None,
@@ -70,54 +48,3 @@ def plot(
     ax = ax_config(fig)
             
     return ax
-
-
-@apply_user_parameters(AXES_PARAMS)
-def config_ax(index_: int = 111,
-    title: Optional[str] = None,
-    xlabel: Optional[str] = None,
-    ylabel: Optional[str] = None,
-    **kwargs) -> Callable:
-    """Return a function to config ax with keyword args"""
-    
-    kwargs_not_packed = _get_local_kwargs(exception=['index_'])
-    all_kwargs = {**kwargs_not_packed, **kwargs}
-    
-    def _config_ax(fig):
-        
-        ax = fig.add_subplot(index_, **all_kwargs)
-        
-        return ax
-
-    return _config_ax
-
-
-def _get_local_kwargs(exception: Optional[list[str]]=None) -> dict:
-    """Return parent function args and values as dict"""
-    
-    exception = exception if exception else []
-    exception = exception + ['args', 'kwargs']
-    
-    fname = inspect.currentframe().f_back
-    args_dict = inspect.getargvalues(fname).locals
-        
-    args_dict = {k: v for k, v in args_dict.items() if k not in exception}
-    args_dict = {k: v for k, v in args_dict.items() if v is not None}
-    
-    return args_dict
-
-
-def save(fname: str, show=True, **kwargs) -> None:
-    """Save a figure with keyword args"""
-    plt.savefig(fname, **kwargs)
-    plt.close() if not show else None
-    
-
-def config_user_parameters(**kwargs):
-    """Set parameters(like default values of args) as you like"""
-    config.user_parameters.update(kwargs)
-    
-
-def reset():
-    """Reset user parameters"""
-    config.user_parameters = {}

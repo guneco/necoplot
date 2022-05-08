@@ -1,16 +1,14 @@
-import inspect
-import itertools
 from typing import Callable, Optional, Union
 
 import matplotlib.pyplot as plt
-from matplotlib.figure import Figure
 from matplotlib.axes._axes import Axes
 
 import necoplot.extract_params as extract_params
-import necoplot.config as config
+import necoplot.common as common
 from necoplot.common import (
-    apply_user_parameters, config_ax, save, config_user_parameters,reset,
+    config_ax, save, config_user_parameters, reset,
 )
+
 
 FIGURE_PARAMS = extract_params.FIGURE_PARAMS
 AXES_PARAMS = extract_params.AXES_PARAMS
@@ -26,7 +24,7 @@ Axes.__enter__ = __enter__
 Axes.__exit__ = __exit__
 
 
-@apply_user_parameters([FIGURE_PARAMS, AXES_PARAMS])
+@common._apply_user_parameters([FIGURE_PARAMS, AXES_PARAMS])
 def plot(
     ax_config: Optional[Callable] = None,
     figsize: tuple[float, float] = (6,4),

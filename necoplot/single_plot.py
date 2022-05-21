@@ -24,7 +24,7 @@ Axes.__exit__ = __exit__
 def plot(
     ax_config: Optional[Callable] = None,
     figsize: tuple[float, float] = (6,4),
-    dpi: int = 300,
+    dpi: int = 150,
     layout: str = 'tight',
     **kwargs) -> Axes:
     """Plot a figure with setting figure args and axes args"""

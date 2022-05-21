@@ -92,3 +92,18 @@ with neco.plot() as ax:
 neco.reset()
 
 ```
+
+## Adovance
+
+### Slope chart
+
+```python
+# Make a slope chart
+names = ['A', 'B', 'C', 'D', 'E']
+time0 = [10, 8, 5, 3, 1]
+time1 = [8, 11, 4, 1, 1]
+
+with neco.slope(time0, time1, labels) as slope:
+    slope.highlight({'A':'positive', 'B':'negative'})
+
+```

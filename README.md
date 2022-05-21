@@ -103,7 +103,8 @@ names = ['A', 'B', 'C', 'D', 'E']
 time0 = [10, 8, 5, 3, 1]
 time1 = [8, 11, 4, 1, 1]
 
-with neco.slope(time0, time1, labels) as slope:
+with neco.slope() as slope:
     slope.highlight({'A':'positive', 'B':'negative'})
+    slope.plot(time0, time1, labels)
 
 ```

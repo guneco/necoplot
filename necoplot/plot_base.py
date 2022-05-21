@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 
 class PlotBase:
-    """Basement class for a plot"""
+    """Basement class for plot classes"""
     def __init__(self,
         figsize: tuple[float, float] = (6,4),
         dpi: int = 150,

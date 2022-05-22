@@ -93,7 +93,7 @@ neco.reset()
 
 ```
 
-## Adovanced
+## Advanced
 ### Slope chart
 
 ```python

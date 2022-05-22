@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "necoplot"
-version = "0.1.4"
+version = "0.1.5"
 description = "A matplotlib wrapper; It may help you to write plotting code briefly."
 authors = ["guneco <gu3fav@gmail.com>"]
 readme = "README.md"

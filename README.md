@@ -93,7 +93,7 @@ neco.reset()
 
 ```
 
-## Adovance
+## Adovanced
 ### Slope chart
 
 ```python
@@ -105,7 +105,7 @@ time1 = [8, 11, 4, 2, 3]
 with neco.slope() as slope:
     slope.plot(time0, time1, names)
 ```
-![custmized_slope](https://user-images.githubusercontent.com/104950574/169690693-525e79c9-b955-4fa9-a6a8-0cb7e8aa6a1b.jpeg)
+![simple_slope](https://user-images.githubusercontent.com/104950574/169690698-fb64f95f-8388-4c88-914e-60089082c856.jpeg)
 
 
 ```python
@@ -119,4 +119,4 @@ with neco.slope(figsize=(4, 5)) as slope:
     slope.plot(time0, time1, names, xticks=('Time0', 'Time1'), 
                title=title, subtitle=subtitle)
 ```
-![simple_slope](https://user-images.githubusercontent.com/104950574/169690698-fb64f95f-8388-4c88-914e-60089082c856.jpeg)
+![custmized_slope](https://user-images.githubusercontent.com/104950574/169690693-525e79c9-b955-4fa9-a6a8-0cb7e8aa6a1b.jpeg)

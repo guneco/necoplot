@@ -53,15 +53,18 @@ class Slope(PlotBase):
         ytop = ymax * 1.2
         ybottom = ymin - (ymax * 0.2)
         yticks_position = ymin - (ymax * 0.1)
-        text_args = {'verticalalignment':'center', 'fontdict':{'size':10}}
         
-        ax = self.fig.add_subplot(111)
+        text_args = {'verticalalignment':'center', 'fontdict':{'size':10}}
         
         for t0, t1, name in zip(time0, time1, names):
             color = self._highlight.get(name, 'gray') if self._highlight else None
+            
+            left_text = f'{name} {str(round(t0))}{self._suffix}'
+            right_text = f'{str(round(t1))}{self._suffix}'
+            
             plt.plot([xstart, xend], [t0, t1], lw=2, color=color, marker='o', markersize=5)
-            plt.text(xstart-0.1, t0, f'{name} {str(round(t0))}{self._suffix}', horizontalalignment='right', **text_args)
-            plt.text(xend+0.1, t1, f'{str(round(t1))}{self._suffix}', horizontalalignment='left', **text_args)
+            plt.text(xstart-0.1, t0, left_text, horizontalalignment='right', **text_args)
+            plt.text(xend+0.1, t1, right_text, horizontalalignment='left', **text_args)
         
         plt.xlim(xmin, xmax)
         plt.ylim(ybottom, ytop)
@@ -70,7 +73,6 @@ class Slope(PlotBase):
         plt.text(0, ytop*0.95, subtitle, horizontalalignment='left', fontdict={'size':10})
         
         plt.text(xstart, yticks_position, xticks[0], horizontalalignment='center', **text_args)
-        plt.text(xend, yticks_position, xticks[1], horizontalalignment='center', **text_args)
         plt.text(xend, yticks_position, xticks[1], horizontalalignment='center', **text_args)
         plt.axis('off')
 

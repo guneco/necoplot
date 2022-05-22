@@ -94,17 +94,29 @@ neco.reset()
 ```
 
 ## Adovance
-
 ### Slope chart
 
 ```python
-# Make a slope chart
-names = ['A', 'B', 'C', 'D', 'E']
-time0 = [10, 8, 5, 3, 1]
-time1 = [8, 11, 4, 1, 1]
+# Make a simple slope chart
+names = ['Apple', 'Banana', 'Cheese', 'Donut', 'Egg']
+time0 = [10, 8, 7, 5, 4]
+time1 = [8, 11, 4, 2, 3]
 
 with neco.slope() as slope:
-    slope.highlight({'A':'positive', 'B':'negative'})
-    slope.plot(time0, time1, labels)
-
+    slope.plot(time0, time1, names)
 ```
+![custmized_slope](https://user-images.githubusercontent.com/104950574/169690693-525e79c9-b955-4fa9-a6a8-0cb7e8aa6a1b.jpeg)
+
+
+```python
+# Make another chart which a little more complicated
+title = 'Example of a slope chart'
+subtitle = 'Food names | Some numbers'
+
+with neco.slope(figsize=(4, 5)) as slope:
+    slope.highlight({'Banana':'orange'})
+    slope.config(xstart=0.2, xend=0.9, suffix='%')
+    slope.plot(time0, time1, names, xticks=('Time0', 'Time1'), 
+               title=title, subtitle=subtitle)
+```
+![simple_slope](https://user-images.githubusercontent.com/104950574/169690698-fb64f95f-8388-4c88-914e-60089082c856.jpeg)

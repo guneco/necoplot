@@ -10,7 +10,7 @@ class PlotBase:
         show: bool =True,
         **kwagrs):
         
-        self.fig = plt.figure(figsize=figsize, dpi=dpi, layout=layout, show=show, **kwagrs)
+        self.fig = plt.figure(figsize=figsize, dpi=dpi, layout=layout, **kwagrs)
         self.show = show
         self.axes = None
 

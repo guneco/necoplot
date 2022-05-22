@@ -1,6 +1,6 @@
 # Under development
 
-from typing import Callable
+from typing import Callable, Optional
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -33,16 +33,49 @@ class Slope(PlotBase):
     def __exit__(self, exc_type, exc_value, exc_traceback):
         plt.show() if self.show else None
         
-    def highlight(self, target_dict: dict):
-        self._highlight.update(target_dict)
+    def highlight(self, add_highlight: dict) -> None:
+        """Set highlight dict
         
-    def config(self, xstart=0, xend=0, suffix=''):
+        e.g.
+            {'Group A': 'orange', 'Group B': 'blue'}
+        
+        """
+        self._highlight.update(add_highlight)
+        
+    def config(self, xstart: float =0, xend: float =0, suffix: str ='') -> None:
+        """Config some parameters
+        
+            Args:
+                xstart (float): x start point, which can take 0.0〜1.0        
+                xend (float): x end point, which can take 0.0〜1.0
+                suffix (str): Suffix for the numbers of chart e.g. '%'
+        
+            Return:
+                None
+                
+        """
         self._xstart = xstart if xstart else self._xstart
         self._xend = xend if xend else self._xend
         self._suffix = suffix if suffix else self._suffix
     
-    def plot(self, time0, time1, names, xticks=(), title='',
-             subtitle=''):
+    def plot(self, time0: list[float], time1: list[float], 
+             names: list[float], xticks: Optional[tuple[str,str]] = None, 
+             title: str ='', subtitle: str =''):
+        """Plot a slope chart
+        
+        Args:
+            time0 (list[float]): Values of start period
+            time1 (list[float]): Values of end period
+            names (list[str]): Names of each items
+            xticks (tuple[str, str]): xticks, default to 'Before' and 'After'
+            title (str): Title of the chart
+            subtitle (str): Subtitle of the chart, it might be x labels
+        
+        Return:
+            None
+        
+        """
+        
         xticks = xticks if xticks else ('Before', 'After')
         
         xmin, xmax = 0, 4

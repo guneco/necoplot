@@ -22,6 +22,9 @@ class Slope(PlotBase):
         super().__init__(
             figsize=figsize, dpi=dpi, layout=layout, 
             show=show, **kwagrs)
+        self._xstart = 0.4
+        self._xend = 0.8
+        self._highlight = {}
         
     def __enter__(self):
         return(self)
@@ -30,37 +33,38 @@ class Slope(PlotBase):
         plt.show() if self.show else None
         
     def highlight(self, target_dict: dict):
-        pass
+        self._highlight.update(target_dict)
+        
+    def settings(self, xstart=None, xend=None):
+        self._xstart = xstart
+        self._xend = xend
     
-    def plot(self,time0, time1, names, xlabels=None):
+    def plot(self,time0, time1, names, xlabels=(), title=''):
         xlabels = xlabels if xlabels else ('Before', 'After')
         
-        xmin = 0
-        xmax = 4
-        xrange = xmax - xmin
-        xstart = xmin + xrange
-        ymax = max(*time0,*time1)
-        ymin = min(*time0,*time1)
-        yrange = ymax - ymin
-        yadjust = yrange*0.02
-        yspace = (ymax-ymin)*0.2
-        ybottom = ymin-yspace
+        xmin, xmax = 0, 4
+        xstart = xmax * self._xstart
+        xend = xmax * self._xend
+        ymax = max(*time0, *time1)
+        ymin = min(*time0, *time1)
+        ybottom = ymin - (ymax * 0.2)
+        yticks_position = ymin - (ymax * 0.1)
+        text_args = {'verticalalignment':'center', 'fontdict':{'size':10}}
+        
+        ax = self.fig.add_subplot(111)
         
         for t0, t1, name in zip(time0, time1, names):
-            plt.plot([xmax*0.4, xmax*0.8], [t0, t1])
-            t0_position = xstart*0.45 - len(str(t0))*0.05
-            name_position = t0_position - len(name)*0.5
-            # name_position = xstart*0.4-len(name)*0.06
-            plt.text(xmax*0.4-0.05, t0, f'{name} {str(round(t0))}', horizontalalignment='right', verticalalignment='center', fontdict={'size':10})
-            plt.text(xmax*0.8+0.05, t1, f'{str(round(t1))}', horizontalalignment='left', verticalalignment='center', fontdict={'size':10})
-
+            color = self._highlight.get(name, 'gray')
+            plt.plot([xstart, xend], [t0, t1], lw=2, color=color, marker='o', markersize=5)
+            plt.text(xstart-0.1, t0, f'{name} {str(round(t0))}', horizontalalignment='right', **text_args)
+            plt.text(xend+0.1, t1, f'{str(round(t1))}', horizontalalignment='left', **text_args)
             
         plt.xlim(xmin, xmax)
-        plt.ylim(ybottom, max(*time0,*time1)*1.1)
-        plt.text(xmax*0.4, ybottom+yspace*0.5, xlabels[0], horizontalalignment='center', verticalalignment='center', fontdict={'size':10})
-        plt.text(xmax*0.8, ybottom+yspace*0.5, xlabels[1], horizontalalignment='center', verticalalignment='center', fontdict={'size':10})
-        plt.xticks([])
-        plt.yticks([])
+        plt.ylim(ybottom, ymax*1.05)
+        plt.text(xstart, yticks_position, xlabels[0], horizontalalignment='center', **text_args)
+        plt.text(xend, yticks_position, xlabels[1], horizontalalignment='center', **text_args)
+        plt.axis('off')
+        ax.set_title(title, loc='left', fontsize=15)
 
         
 @common._apply_user_parameters(FIGURE_PARAMS)
